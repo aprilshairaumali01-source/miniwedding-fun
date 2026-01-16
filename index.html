@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MiniWedding 💕 Virtual Cute Weddings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #fff0f5;
+      --pink: #ffb6c1;
+      --lavender: #e0bbff;
+      --blue: #b3e5fc;
+      --cream: #fff5e6;
+      --text: #5c3f77;
+      --accent: #ff9aa2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, var(--bg), #f8e1e9);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      cursor: url('https://cur.cursors-4u.net/nature/nat-10/nat915.cur'), auto;
+    }
+
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.4rem;
+      color: rgba(255,182,193,0.6);
+      animation: float 12s infinite linear;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(-15vh) rotate(360deg); opacity: 0; }
+    }
+
+    h1, h2, h3 {
+      font-family: 'Comic Neue', cursive;
+      color: var(--pink);
+      text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.9rem 2rem;
+      margin: 0.8rem;
+      border: none;
+      border-radius: 999px;
+      background: var(--pink);
+      color: white;
+      box-shadow: 0 6px var(--accent);
+      transform: translateY(0);
+      transition: all 0.15s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 9px var(--accent);
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px var(--accent);
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      20%,60% { transform: translateX(-6px); }
+      40%,80% { transform: translateX(6px); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border: 2px solid rgba(255,182,193,0.4);
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .chibi-preview {
+      width: 180px;
+      height: 220px;
+      margin: 1.5rem auto;
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e9);
+      border-radius: 40% 40% 50% 50%/ 60% 60% 40% 40%;
+      border: 8px solid white;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chibi-face {
+      position: absolute;
+      inset: 0;
+      font-size: 8rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: blush 3s infinite alternate;
+    }
+
+    @keyframes blush {
+      from { filter: brightness(1) hue-rotate(0deg); }
+      to   { filter: brightness(1.1) hue-rotate(15deg); }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toggle-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .toggle {
+      appearance: none;
+      width: 64px;
+      height: 32px;
+      background: #ddd;
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle:checked {
+      background: var(--pink);
+    }
+
+    .toggle::after {
+      content: "";
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s;
+    }
+
+    .toggle:checked::after {
+      transform: translateX(32px);
+    }
+
+    .hidden { display: none !important; }
+    .fade-in { animation: fadeIn 0.8s forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+
+<div class="hearts-bg" id="hearts"></div>
+
+<div class="container" id="app">
+
+  <!-- ── Dashboard (Inviter Home) ─────────────────────────────── -->
+  <section id="dashboard" class="card fade-in">
+    <h1 style="font-size:3.2rem; margin-bottom:0.5rem;">MiniWedding 💕</h1>
+    <p style="font-size:1.3rem; color:#777; margin-bottom:2rem;">Create your dream virtual wedding~ ♡</p>
+
+    <div class="btn" onclick="goTo('avatar-setup')">Create My Wedding</div>
+    <div class="btn" style="background:var(--lavender);">View My Invites</div>
+    <div class="btn" style="background:var(--blue);">My Certificates</div>
+  </section>
+
+  <!-- ── Avatar Setup (both inviter & invitee) ────────────────── -->
+  <section id="avatar-setup" class="card hidden">
+    <h2>Let's make your cute avatar! ✿</h2>
+    <p>Choose your gender first~</p>
+
+    <div class="toggle-group">
+      <label>
+        <input type="radio" name="gender" value="girl" checked onchange="updateChibi()"> Girl ♡
+      </label>
+      <label>
+        <input type="radio" name="gender" value="boy" onchange="updateChibi()"> Boy ♡
+      </label>
+    </div>
+
+    <div class="chibi-preview">
+      <div class="chibi-face" id="chibi">ฅ^•ﻌ•^ฅ</div>
+    </div>
+
+    <p>(hairstyle • outfit • accessories coming soon~)</p>
+
+    <div class="btn" onclick="goTo('wedding-planner')">Save My Avatar ♡</div>
+  </section>
+
+  <!-- ── Wedding Planner (Inviter) ─────────────────────────────── -->
+  <section id="wedding-planner" class="card hidden">
+    <h2>Wedding Planner ✧</h2>
+
+    <div style="margin:1.5rem 0">
+      <label>Choose Theme:</label><br>
+      <select style="padding:0.8rem; margin:0.6rem; border-radius:12px; font-size:1.1rem;">
+        <option>🌸 Garden</option>
+        <option>⛪ Church</option>
+        <option>🏖️ Beach</option>
+      </select>
+    </div>
+
+    <div style="margin:1.5rem 0">
+      <label>Paste cute music link:</label><br>
+      <input type="text" placeholder="https://youtu.be/..." style="padding:0.8rem; width:80%; max-width:400px; border-radius:12px; border:2px solid var(--pink); margin-top:0.5rem;">
+    </div>
+
+    <div style="margin:1.5rem 0">
+      <label>Date & Time:</label><br>
+      <input type="datetime-local" style="padding:0.8rem; border-radius:12px; border:2px solid var(--pink); margin-top:0.5rem;">
+    </div>
+
+    <div class="btn" onclick="goTo('invitation')">Next → Create Invitation</div>
+  </section>
+
+  <!-- ── Create Invitation (Inviter) ───────────────────────────── -->
+  <section id="invitation" class="card hidden">
+    <h2>Who are you inviting? 💌</h2>
+
+    <input type="text" placeholder="Partner's name" style="padding:0.9rem; width:80%; max-width:400px; margin:0.8rem; border-radius:999px; border:2px solid var(--pink); text-align:center; font-size:1.2rem;"><br>
+
+    <input type="text" placeholder="Nickname (optional)" style="padding:0.8rem; width:80%; max-width:400px; margin:0.6rem; border-radius:999px; border:2px dashed var(--lavender); text-align:center;"><br>
+
+    <textarea placeholder="will you be my forever, even virtually?" style="padding:1rem; width:90%; max-width:500px; height:100px; border-radius:1.5rem; border:2px solid var(--blue); margin:1rem 0; font-family:inherit; resize:none;"></textarea>
+
+    <div class="btn" onclick="generateInvite()">Generate Wedding Invite ♡</div>
+  </section>
+
+  <!-- ── Invitation Opening (Invitee) ─────────────────────────── -->
+  <section id="invite-open" class="card hidden">
+    <h1 style="font-size:3rem; margin:1rem;">💌 You've been invited to a Virtual Wedding! 💕</h1>
+    <div style="font-size:6rem; margin:2rem 0;">✉️</div>
+    <div class="btn" onclick="goTo('reveal')">Open Invitation</div>
+  </section>
+
+  <!-- ── Reveal + Proposal (Invitee) ───────────────────────────── -->
+  <section id="reveal" class="card hidden">
+    <h2 style="font-size:2.5rem;">Heyy~</h2>
+    <div class="chibi-preview" style="margin:2rem auto;">
+      <div class="chibi-face">⁄(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)</div>
+    </div>
+    <p style="font-size:1.4rem; line-height:1.6; margin:1.5rem 0;">
+      <strong>Aqua</strong> (cutie) says:<br>
+      <em>will you be my forever, even virtually?</em>
+    </p>
+
+    <div>
+      <div class="btn" style="background:#a8e6cf;" onclick="goTo('avatar-setup')">Yes, I do! ♡</div>
+      <div class="btn" style="background:#ffd3b6;">Let me think...</div>
+    </div>
+  </section>
+
+  <!-- ── Ceremony Placeholder ──────────────────────────────────── -->
+  <section id="ceremony" class="card hidden">
+    <h1 style="font-size:3.5rem;">Our Virtual Wedding ♡</h1>
+    <div style="font-size:8rem; margin:2rem 0;">💒</div>
+    <p style="font-size:1.5rem; margin:2rem 0;">Aqua & Partner</p>
+    <p style="font-size:1.3rem; color:#777;">[soft wedding music playing...]</p>
+
+    <div style="margin:3rem 0;">
+      <div class="btn" style="background:var(--lavender);">I promise ♡</div>
+      <div class="btn" onclick="goTo('certificate')">Kiss 💋</div>
+    </div>
+  </section>
+
+  <!-- ── Certificate Ending ────────────────────────────────────── -->
+  <section id="certificate" class="card hidden">
+    <h1 style="font-size:3.8rem; color:#ff9aa2;">Wedding Certificate ✧</h1>
+    <div style="background:white; border:8px double var(--pink); border-radius:1.5rem; padding:3rem; margin:2rem auto; max-width:600px; box-shadow:0 10px 30px rgba(0,0,0,0.1);">
+      <p style="font-size:2.2rem; margin:1rem 0;">This is to certify that</p>
+      <h2 style="font-size:3.5rem; color:var(--text); margin:1.5rem 0;">Aqua ♡ Partner</h2>
+      <p style="font-size:1.6rem;">were virtually married on</p>
+      <p style="font-size:1.8rem; font-weight:bold; color:var(--pink);">January 16, 2026</p>
+      <p style="font-size:2rem; margin-top:2rem;">Forever & Always ♡</p>
+    </div>
+
+    <div>
+      <div class="btn" style="background:#a8e6cf;">Download PDF</div>
+      <div class="btn" style="background:#ffd3b6;">Share</div>
+      <div class="btn" onclick="goTo('ceremony')">Rewatch Ceremony</div>
+    </div>
+
+    <p style="margin-top:3rem; font-size:1.3rem;">Congratulations! Your cute virtual wedding is complete! 🎉💕</p>
+  </section>
+
+</div>
+
+<script>
+  // Floating hearts background
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = ['♡','💗','💖','✧','❀'][Math.floor(Math.random()*5)];
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.animationDuration = (8 + Math.random()*10) + 's';
+    heart.style.fontSize = (1 + Math.random()*1.4) + 'rem';
+    document.getElementById('hearts').appendChild(heart);
+    setTimeout(() => heart.remove(), 15000);
+  }
+  setInterval(createHeart, 800);
+
+  // Simple page flow
+  function goTo(id) {
+    document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    document.getElementById(id).classList.add('fade-in');
+
+    // Tiny pop sound simulation (you can replace with real audio)
+    console.log("♡ pop! ♡");
+  }
+
+  // Dummy chibi update (placeholder)
+  function updateChibi() {
+    const chibi = document.getElementById('chibi');
+    const isGirl = document.querySelector('[name="gender"]:checked').value === 'girl';
+    chibi.textContent = isGirl ? '(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)' : '(⁄ ⁄•⁄ω⁄•⁄ ⁄)';
+  }
+
+  // Fake generate link animation
+  function generateInvite() {
+    alert("💕 Wedding invite link generated!\n\nhttps://miniwedding.fun/invite/abc123-♡\n\n(You can copy & share now~)");
+    goTo('dashboard');
+  }
+
+  // Start with dashboard
+  goTo('dashboard');
+</script>
+</body>
+</html>
